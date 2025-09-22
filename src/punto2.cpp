@@ -6,8 +6,8 @@ const char* password = "itisjtsmg";
 
 // --- Configuración del Servidor y Hardware ---
 WiFiServer server(80); // Puerto 80 es el estándar para HTTP
-int seg7 [7] = {13,14,15,16,17,18,19};  // Pin del LED integrado en la mayoría de placas ESP32
-int seg72 [7] = {13,14,15,16,17,18,19};  // Pin del LED integrado en la mayoría de placas ESP32
+int seg7 [7] = {0,1,2,3,4,5,6};  // Pin del LED integrado en la mayoría de placas ESP32
+int seg72 [7] = {7,8,9,10,11,12,13};  // Pin del LED integrado en la mayoría de placas ESP32
 int numeros [10][7] = {
     {1,1,1,1,1,1,0}, //0
     {1,1,0,0,0,0,0}, //1
@@ -56,34 +56,34 @@ const char pagina_html[] PROGMEM = R"rawliteral(
     <a href="/two"><button class="btn btn-a">dos</button></a>
   </p>
   <p>
-    <a href="/cero"><button class="btn btn-b">apagar</button></a>
+    <a href="/cero"><button class="btn btn-b">0</button></a>
   </p>
   <p>
-    <a href="/uno"><button class="btn btn-c">apagar</button></a>
+    <a href="/uno"><button class="btn btn-c">1</button></a>
   </p>
   <p>
-    <a href="/dos"><button class="btn btn-d">apagar</button></a>
+    <a href="/dos"><button class="btn btn-d">2</button></a>
   </p>
   <p>
-    <a href="/tres"><button class="btn btn-e">apagar</button></a>
+    <a href="/tres"><button class="btn btn-e">3</button></a>
   </p>
   <p>
-    <a href="/cuatro"><button class="btn btn-f">apagar</button></a>
+    <a href="/cuatro"><button class="btn btn-f">4</button></a>
   </p>
   <p>
-    <a href="/cinco"><button class="btn btn-g">apagar</button></a>
+    <a href="/cinco"><button class="btn btn-g">5</button></a>
   </p>
   <p>
-    <a href="/seis"><button class="btn btn-h">apagar</button></a>
+    <a href="/seis"><button class="btn btn-h">6</button></a>
   </p>
   <p>
-    <a href="/siete"><button class="btn btn-i">apagar</button></a>
+    <a href="/siete"><button class="btn btn-i">7</button></a>
   </p>
   <p>
-    <a href="/ocho"><button class="btn btn-j">apagar</button></a>
+    <a href="/ocho"><button class="btn btn-j">8</button></a>
   </p>
   <p>
-    <a href="/nueve"><button class="btn btn-k">apagar</button></a>
+    <a href="/nueve"><button class="btn btn-k">9</button></a>
   </p>
 </body>
 </html>
@@ -160,55 +160,55 @@ void loop() {
             else if (header.indexOf("GET /uno") >= 0) {
                 Serial.println("Request para secuencia 1");
                   for(i=0;i<7;i++){
-                    digitalWrite(seg7[1],numeros[0][i]);
+                    digitalWrite(seg7[1],numeros[1][i]);
                   }
               }
             else if (header.indexOf("GET /dos") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[2],numeros[0][i]);
+                  digitalWrite(seg7[2],numeros[2][i]);
                 }
             }
             else if (header.indexOf("GET /tres") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[3],numeros[0][i]);
+                  digitalWrite(seg7[3],numeros[3][i]);
                 }
             }
             else if (header.indexOf("GET /cuatro") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[4],numeros[0][i]);
+                  digitalWrite(seg7[4],numeros[4][i]);
                 }
             }
             else if (header.indexOf("GET /cinco") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[5],numeros[0][i]);
+                  digitalWrite(seg7[5],numeros[5][i]);
                 }
             }
             else if (header.indexOf("GET /seis") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[6],numeros[0][i]);
+                  digitalWrite(seg7[6],numeros[6][i]);
                 }
             }
             else if (header.indexOf("GET /siete") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[7],numeros[0][i]);
+                  digitalWrite(seg7[7],numeros[7][i]);
                 }
             }
             else if (header.indexOf("GET /ocho") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[8],numeros[0][i]);
+                  digitalWrite(seg7[8],numeros[8][i]);
                 }
             }
             else if (header.indexOf("GET /nueve") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[9],numeros[0][i]);
+                  digitalWrite(seg7[9],numeros[9][i]);
                 }
             }
           }
@@ -222,55 +222,55 @@ void loop() {
             else if (header.indexOf("GET /uno") >= 0) {
                 Serial.println("Request para secuencia 1");
                   for(i=0;i<7;i++){
-                    digitalWrite(seg7[1],numeros[0][i]);
+                    digitalWrite(seg7[1],numeros[1][i]);
                   }
               }
             else if (header.indexOf("GET /dos") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[2],numeros[0][i]);
+                  digitalWrite(seg7[2],numeros[2][i]);
                 }
             }
             else if (header.indexOf("GET /tres") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[3],numeros[0][i]);
+                  digitalWrite(seg7[3],numeros[3][i]);
                 }
             }
             else if (header.indexOf("GET /cuatro") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[4],numeros[0][i]);
+                  digitalWrite(seg7[4],numeros[4][i]);
                 }
             }
             else if (header.indexOf("GET /cinco") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[5],numeros[0][i]);
+                  digitalWrite(seg7[5],numeros[5][i]);
                 }
             }
             else if (header.indexOf("GET /seis") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[6],numeros[0][i]);
+                  digitalWrite(seg7[6],numeros[6][i]);
                 }
             }
             else if (header.indexOf("GET /siete") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[7],numeros[0][i]);
+                  digitalWrite(seg7[7],numeros[7][i]);
                 }
             }
             else if (header.indexOf("GET /ocho") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[8],numeros[0][i]);
+                  digitalWrite(seg7[8],numeros[8][i]);
                 }
             }
             else if (header.indexOf("GET /nueve") >= 0) {
               Serial.println("Request para secuencia 1");
                 for(i=0;i<7;i++){
-                  digitalWrite(seg7[9],numeros[0][i]);
+                  digitalWrite(seg7[9],numeros[9][i]);
                 }
             }
           }

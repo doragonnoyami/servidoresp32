@@ -1,13 +1,24 @@
 #include <WiFi.h>
 
 // --- Configuración de Red ---
-const char* ssid = "EL_NOMBRE_DE_TU_WIFI";
-const char* password = "LA_CONTRASENA_DE_TU_WIFI";
+const char* ssid = "CESJT";
+const char* password = "itisjtsmg";
 
 // --- Configuración del Servidor y Hardware ---
 WiFiServer server(80); // Puerto 80 es el estándar para HTTP
-const int ledPin = 2;  // Pin del LED integrado en la mayoría de placas ESP32
-
+int leds [5] = {14,27,26,25,33};  // Pin del LED integrado en la mayoría de placas ESP32
+int animacion1 [5] = {1,1,1,1,1}; 
+int animacion2 [5][5] = {
+  {1,0,0,0,0},
+  {0,1,0,0,0},
+  {0,0,1,0,0},
+  {0,0,0,1,0},
+  {0,0,0,0,1}
+}; 
+int apagal [5] = {0,0,0,0,0}; 
+int i=0;
+int ta=0, td=1000, tp=0;
+int j=0;
 // --- Página Web ---
 // Se guarda en memoria de programa (PROGMEM) para ahorrar RAM. Es más eficiente que usar un String.
 const char pagina_html[] PROGMEM = R"rawliteral(
@@ -19,30 +30,35 @@ const char pagina_html[] PROGMEM = R"rawliteral(
   <title>Control LED ESP32</title>
   <style>
     html { font-family: sans-serif; text-align: center; }
-    .btn { display: inline-block; background-color: #4CAF50; border: none; color: white;
+    .btn { display: inline-block; background-color:rgb(255, 230, 0); border: none; color: white;
            padding: 16px 30px; text-decoration: none; font-size: 24px; margin: 2px; cursor: pointer; border-radius: 8px; }
-    .btn-off { background-color: #f44336; }
+    .btn-a { background-color:rgb(25, 0, 255); }
+    .btn-b { background-color: #f44336; }
   </style>
 </head>
 <body>
   <h1>Servidor Web</h1>
   <p>Control del LED interno</p>
   <p>
-    <a href="/on"><button class="btn">ENCENDER</button></a>
+    <a href="/one"><button class="btn">uno</button></a>
   </p>
   <p>
-    <a href="/off"><button class="btn btn-off">APAGAR</button></a>
+    <a href="/two"><button class="btn btn-a">dos</button></a>
+  </p>
+  <p>
+    <a href="/off"><button class="btn btn-b">apagar</button></a>
   </p>
 </body>
 </html>
 )rawliteral";
 
-
 void setup() {
-  Serial.begin(115200);
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
 
+  Serial.begin(115200);
+  for(i=0;i<5;i++){
+    pinMode (leds[i],OUTPUT);
+    digitalWrite(leds[i],LOW);
+  }
   // --- Conexión a la red Wi-Fi ---
   Serial.print("Conectando a ");
   Serial.println(ssid);
@@ -94,12 +110,27 @@ void loop() {
         if (currentLine.length() == 0) {
 
           // 3. Interpretar la petición y actuar
-          if (header.indexOf("GET /on") >= 0) {
-            Serial.println("Request para encender el LED");
-            digitalWrite(ledPin, HIGH);
-          } else if (header.indexOf("GET /off") >= 0) {
+          if (header.indexOf("GET /one") >= 0) {
+            Serial.println("Request para secuencia 1");
+            for(i=0;i<5;i++){
+              digitalWrite(leds[i],animacion1[i]);
+            }
+          }
+          else if(header.indexOf("GET /two")>=0){
+            Serial.println("request para secuencia 2");
+            for(i=0;i<5;i++){
+                for(j=0;j<5;j++){
+                  digitalWrite(leds[j],animacion2[i][j]);
+                }
+            delay (500);  
+            }
+         }
+        
+          else if (header.indexOf("GET /off") >= 0) {
             Serial.println("Request para apagar el LED");
-            digitalWrite(ledPin, LOW);
+            for(i=0;i<5;i++){
+              digitalWrite(leds[i], apagal[i]);
+            }
           }
 
           // 4. Enviar la respuesta HTTP (construida manualmente)
@@ -123,9 +154,8 @@ void loop() {
         currentLine += c;
       }
     }
-  }
-
-  // 5. Cerrar la conexión
+}
+      // 5. Cerrar la conexión
   client.stop();
   Serial.println("[Cliente Desconectado]");
-}
+  }
